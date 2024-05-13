@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Demo License Client</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width" />
+    <base href="/" />
+    <script>
+        function loadLicenseInfo() {
+            fetch("http://localhost:8080/license-info")
+                .then((response) => response.json())
+                .then((json) => {
+                    console.log(json);
+                    document.getElementById("license-info-name").textContent = json.name;
+                    document.getElementById("license-info-valid").textContent = json.valid ? "VALID" : "INVALID";
+                    document.getElementById("license-info-error").textContent = "";
+                }).catch((reason) => {
+                    document.getElementById("license-info-error").textContent = "Unable to request license!";
+                    document.getElementById("license-info-name").textContent = "";
+                    document.getElementById("license-info-valid").textContent = "";
+            });
+        }
+    </script>
+</head>
+
+<body onload="loadLicenseInfo()">
+<header>
+    <h1>Demo License Client</h1>
+</header>
+<main>
+    <div class="container">
+        <div id="license-info-name"></div>
+        <div id="license-info-valid"></div>
+        <div id="license-info-error"></div>
+    </div>
+</main>
+
+</body>
+
+</html>
